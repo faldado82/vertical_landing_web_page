@@ -47,10 +47,11 @@ class _CustomAppMenuState extends State<CustomAppMenu>
                 _MenuTitle(isOpen: isOpen, controller: controller),
                 if (isOpen) ...[
                   CustomMenuItem(text: 'Home', onPressed: () {}),
-                  CustomMenuItem(text: 'About', onPressed: () {}),
-                  CustomMenuItem(text: 'Pricing', onPressed: () {}),
-                  CustomMenuItem(text: 'Contact', onPressed: () {}),
-                  CustomMenuItem(text: 'Location', onPressed: () {}),
+                  CustomMenuItem(delay: 50, text: 'About', onPressed: () {}),
+                  CustomMenuItem(delay: 100, text: 'Pricing', onPressed: () {}),
+                  CustomMenuItem(delay: 150, text: 'Contact', onPressed: () {}),
+                  CustomMenuItem(
+                      delay: 200, text: 'Location', onPressed: () {}),
                   const SizedBox(height: 15)
                 ],
               ],
@@ -71,7 +72,7 @@ class _MenuTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 150,
       height: 50,
       child: Row(

@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:vertical_landing_web_page/providers/page_provider.dart';
 import 'package:vertical_landing_web_page/ui/shared/custom_app_menu.dart';
 import 'package:vertical_landing_web_page/ui/views/about_view.dart';
 import 'package:vertical_landing_web_page/ui/views/contact_view.dart';
@@ -42,7 +44,10 @@ class HomePage extends StatelessWidget {
 class _HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final pageProvider = Provider.of<PageProvider>(context, listen: false);
+
     return PageView(
+      controller: pageProvider.scrollController,
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       scrollBehavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
