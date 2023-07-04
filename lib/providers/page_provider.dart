@@ -12,11 +12,28 @@ class PageProvider extends ChangeNotifier {
     'location'
   ];
 
+  int _currentIndex = 0;
+
   createScrollController(String routeName) {
     scrollController = PageController(initialPage: getPageIndex(routeName));
+    html.document.title =
+        'Landing Web Page: ${capitalize(_pages[_currentIndex])}';
+    scrollController.addListener(() {
+      final index = (scrollController.page ?? 0).round;
+
+      if (index() != _currentIndex) {
+        html.window.history.pushState(null, '', '#/${_pages[index()]} ');
+        _currentIndex = index();
+        html.document.title =
+            'Landing Web Page: ${capitalize(_pages[_currentIndex])}';
+      }
+    });
   }
 
-  
+  String capitalize(String value) {
+    return value.substring(0, 1).toUpperCase() + value.substring(1);
+  }
+
   //obtengo en index de la pagina...
   // si no existe sera -1 entonces devuelvo el index 0...
   // sino retornare el index de la pagina solicitada
@@ -25,9 +42,6 @@ class PageProvider extends ChangeNotifier {
   }
 
   goTo(int index) {
-    //final routeName = _pages[index];
-    html.window.history.pushState(null, '', '#/${_pages[index]} ');
-
     scrollController.animateToPage(
       index,
       duration: const Duration(milliseconds: 300),
